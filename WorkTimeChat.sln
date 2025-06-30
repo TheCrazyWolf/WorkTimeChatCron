@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTimeChat", "WorkTimeChat\WorkTimeChat.csproj", "{FF384497-3760-4855-AA93-8ED8E6A1C18E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTimeChat.Models", "WorkTimeChat.Models\WorkTimeChat.Models.csproj", "{BC1CCFFB-05C6-46B8-94E3-79BF906CB308}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTimeChat.Jobs", "WorkTimeChat.Jobs\WorkTimeChat.Jobs.csproj", "{353146C9-5972-49F2-A041-EE0A4C9F7E55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{FF384497-3760-4855-AA93-8ED8E6A1C18E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF384497-3760-4855-AA93-8ED8E6A1C18E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF384497-3760-4855-AA93-8ED8E6A1C18E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC1CCFFB-05C6-46B8-94E3-79BF906CB308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC1CCFFB-05C6-46B8-94E3-79BF906CB308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC1CCFFB-05C6-46B8-94E3-79BF906CB308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC1CCFFB-05C6-46B8-94E3-79BF906CB308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{353146C9-5972-49F2-A041-EE0A4C9F7E55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{353146C9-5972-49F2-A041-EE0A4C9F7E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{353146C9-5972-49F2-A041-EE0A4C9F7E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{353146C9-5972-49F2-A041-EE0A4C9F7E55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
