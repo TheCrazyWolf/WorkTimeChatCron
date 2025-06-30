@@ -9,11 +9,15 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5"/>
+        <PackageReference Include="Quartz" Version="3.14.0" />
+        <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.14.0" />
+        <PackageReference Include="Quartz.Extensions.Hosting" Version="3.14.0" />
         <PackageReference Include="TelegramBotBase" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\WorkTimeChat.Forms\WorkTimeChat.Forms.csproj" />
+      <ProjectReference Include="..\WorkTimeChat.Jobs\WorkTimeChat.Jobs.csproj" />
       <ProjectReference Include="..\WorkTimeChat.Models\WorkTimeChat.Models.csproj" />
       <ProjectReference Include="..\WorkTimeChat.Telegram\WorkTimeChat.Telegram.csproj" />
     </ItemGroup>

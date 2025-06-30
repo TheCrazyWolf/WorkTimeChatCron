@@ -1,4 +1,5 @@
-using WorkTimeChat;
+using Quartz;
+using WorkTimeChat.Jobs;
 using WorkTimeChat.Models;
 using WorkTimeChat.Telegram;
 
@@ -9,6 +10,33 @@ builder.Services.AddSingleton<TelegramWorker>(sp =>
     var telegramBackground = new TelegramWorker(builder.Configuration.Get<WorkTimeConfig>()!.AccessToken, sp);
     _ = telegramBackground.StartAsync();
     return telegramBackground;
+});
+
+var config = builder.Configuration.Get<WorkTimeConfig>()!;
+
+builder.Services.AddQuartz(q =>
+{
+    var jobKeyStartChat = new JobKey(nameof(JobStartWorkTimeChat));
+    q.AddJob<JobStartWorkTimeChat>(opts => opts.WithIdentity(jobKeyStartChat));
+
+    q.AddTrigger(opts => opts
+        .ForJob(jobKeyStartChat)
+        .WithIdentity(nameof(JobStartWorkTimeChat))
+        .WithCronSchedule(config.JobTurnOnParams));
+    
+    var jobKeyEndChat = new JobKey(nameof(JobEndOfWorkTimeChat));
+    q.AddJob<JobEndOfWorkTimeChat>(opts => opts.WithIdentity(jobKeyEndChat));
+
+    q.AddTrigger(opts => opts
+        .ForJob(jobKeyEndChat)
+        .WithIdentity(nameof(JobEndOfWorkTimeChat))
+        .WithCronSchedule(config.JobTurnOffParams));
+    
+});
+
+builder.Services.AddQuartzHostedService(options =>
+{
+    options.WaitForJobsToComplete = true;
 });
 
 var host = builder.Build();
