@@ -16,22 +16,27 @@ var config = builder.Configuration.Get<WorkTimeConfig>()!;
 
 builder.Services.AddQuartz(q =>
 {
-    var jobKeyStartChat = new JobKey(nameof(JobStartWorkTimeChat));
-    q.AddJob<JobStartWorkTimeChat>(opts => opts.WithIdentity(jobKeyStartChat));
+    foreach (var item in config.JobTurnOnParams)
+    {
+        var jobKeyStartChat = new JobKey(nameof(JobStartWorkTimeChat));
+        q.AddJob<JobStartWorkTimeChat>(opts => opts.WithIdentity(jobKeyStartChat));
 
-    q.AddTrigger(opts => opts
-        .ForJob(jobKeyStartChat)
-        .WithIdentity(nameof(JobStartWorkTimeChat))
-        .WithCronSchedule(config.JobTurnOnParams));
+        q.AddTrigger(opts => opts
+            .ForJob(jobKeyStartChat)
+            .WithIdentity(nameof(JobStartWorkTimeChat))
+            .WithCronSchedule(item));
+    }
     
-    var jobKeyEndChat = new JobKey(nameof(JobEndOfWorkTimeChat));
-    q.AddJob<JobEndOfWorkTimeChat>(opts => opts.WithIdentity(jobKeyEndChat));
+    foreach (var item in config.JobTurnOffParams)
+    {
+        var jobKeyEndChat = new JobKey(nameof(JobEndOfWorkTimeChat));
+        q.AddJob<JobEndOfWorkTimeChat>(opts => opts.WithIdentity(jobKeyEndChat));
 
-    q.AddTrigger(opts => opts
-        .ForJob(jobKeyEndChat)
-        .WithIdentity(nameof(JobEndOfWorkTimeChat))
-        .WithCronSchedule(config.JobTurnOffParams));
-    
+        q.AddTrigger(opts => opts
+            .ForJob(jobKeyEndChat)
+            .WithIdentity(nameof(JobEndOfWorkTimeChat))
+            .WithCronSchedule(item));
+    }
 });
 
 builder.Services.AddQuartzHostedService(options =>
