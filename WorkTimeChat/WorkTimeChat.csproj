@@ -15,5 +15,6 @@
     <ItemGroup>
       <ProjectReference Include="..\WorkTimeChat.Forms\WorkTimeChat.Forms.csproj" />
       <ProjectReference Include="..\WorkTimeChat.Models\WorkTimeChat.Models.csproj" />
+      <ProjectReference Include="..\WorkTimeChat.Telegram\WorkTimeChat.Telegram.csproj" />
     </ItemGroup>
 </Project>

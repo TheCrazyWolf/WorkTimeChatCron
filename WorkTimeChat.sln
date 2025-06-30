@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTimeChat.Jobs", "WorkTi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTimeChat.Forms", "WorkTimeChat.Forms\WorkTimeChat.Forms.csproj", "{18E825CC-7CC0-47BB-A9D0-D05C709030D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTimeChat.Telegram", "WorkTimeChat.Telegram\WorkTimeChat.Telegram.csproj", "{5C3803BB-04BC-40C5-85B7-005F53712671}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{18E825CC-7CC0-47BB-A9D0-D05C709030D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18E825CC-7CC0-47BB-A9D0-D05C709030D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18E825CC-7CC0-47BB-A9D0-D05C709030D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C3803BB-04BC-40C5-85B7-005F53712671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C3803BB-04BC-40C5-85B7-005F53712671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C3803BB-04BC-40C5-85B7-005F53712671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C3803BB-04BC-40C5-85B7-005F53712671}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

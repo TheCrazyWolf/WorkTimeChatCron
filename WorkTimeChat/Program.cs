@@ -1,5 +1,6 @@
 using WorkTimeChat;
 using WorkTimeChat.Models;
+using WorkTimeChat.Telegram;
 
 var builder = Host.CreateApplicationBuilder(args);
 

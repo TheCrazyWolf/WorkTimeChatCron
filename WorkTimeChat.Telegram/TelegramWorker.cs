@@ -7,7 +7,7 @@ using TelegramBotBase.DependencyInjection;
 using TelegramBotBase.Form;
 using WorkTimeChat.Forms;
 
-namespace WorkTimeChat;
+namespace WorkTimeChat.Telegram;
 
 public class TelegramWorker(string apiKey, IServiceProvider serviceProvider) 
 {
