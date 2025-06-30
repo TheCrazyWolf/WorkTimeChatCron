@@ -18,23 +18,25 @@ builder.Services.AddQuartz(q =>
 {
     foreach (var item in config.JobTurnOnParams)
     {
-        var jobKeyStartChat = new JobKey(nameof(JobStartWorkTimeChat));
+        var jobId = $"{nameof(JobStartWorkTimeChat)}-{new Random().Next()}";
+        var jobKeyStartChat = new JobKey(jobId);
         q.AddJob<JobStartWorkTimeChat>(opts => opts.WithIdentity(jobKeyStartChat));
 
         q.AddTrigger(opts => opts
             .ForJob(jobKeyStartChat)
-            .WithIdentity(nameof(JobStartWorkTimeChat))
+            .WithIdentity(jobId)
             .WithCronSchedule(item));
     }
     
     foreach (var item in config.JobTurnOffParams)
     {
-        var jobKeyEndChat = new JobKey(nameof(JobEndOfWorkTimeChat));
+        var jobId = $"{nameof(JobStartWorkTimeChat)}-{new Random().Next()}";
+        var jobKeyEndChat = new JobKey(jobId);
         q.AddJob<JobEndOfWorkTimeChat>(opts => opts.WithIdentity(jobKeyEndChat));
 
         q.AddTrigger(opts => opts
             .ForJob(jobKeyEndChat)
-            .WithIdentity(nameof(JobEndOfWorkTimeChat))
+            .WithIdentity(jobId)
             .WithCronSchedule(item));
     }
 });
