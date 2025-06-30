@@ -7,14 +7,14 @@ using WorkTimeChat.Telegram;
 
 namespace WorkTimeChat.Jobs;
 
-public class JobStartWorkTimeChat(TelegramWorker telegramWorker, IConfiguration configuration) : IJob
+public class JobEndOfWorkTimeChat(TelegramWorker telegramWorker, IConfiguration configuration) : IJob
 {
     public async Task Execute(IJobExecutionContext context)
     {
         var bot = telegramWorker.BotBaseInstance!.Client.TelegramClient;
         var config = configuration.Get<WorkTimeConfig>()!;
 
-        var isAllowed = true;
+        var isAllowed = false;
 
         var perm = new ChatPermissions()
         {
@@ -30,6 +30,6 @@ public class JobStartWorkTimeChat(TelegramWorker telegramWorker, IConfiguration 
         };
         
         await bot.SetChatPermissions(chatId: config.ChatId, permissions: perm);
-        await bot.SendMessage(chatId: config.ChatId, config.ChatTurnOnMessage);
+        await bot.SendMessage(chatId: config.ChatId, config.ChatTurnOffMessage);
     }
 }
