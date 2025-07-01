@@ -16,7 +16,7 @@ public class JobStartWorkTimeChat(TelegramWorker telegramWorker, IConfiguration 
 
         var isAllowed = true;
 
-        var perm = new ChatPermissions()
+        var perm = new ChatPermissions
         {
             CanSendAudios = isAllowed,
             CanSendDocuments = isAllowed,
@@ -28,8 +28,12 @@ public class JobStartWorkTimeChat(TelegramWorker telegramWorker, IConfiguration 
             CanSendVideos = isAllowed,
             CanSendOtherMessages = isAllowed,
         };
+
+        foreach (var chatId in config.ChatIds)
+        {
+            await bot.SetChatPermissions(chatId: chatId, permissions: perm);
+            await bot.SendMessage(chatId: chatId, config.ChatTurnOnMessage);
+        }
         
-        await bot.SetChatPermissions(chatId: config.ChatId, permissions: perm);
-        await bot.SendMessage(chatId: config.ChatId, config.ChatTurnOnMessage);
     }
 }

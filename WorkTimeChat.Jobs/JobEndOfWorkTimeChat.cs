@@ -29,7 +29,10 @@ public class JobEndOfWorkTimeChat(TelegramWorker telegramWorker, IConfiguration 
             CanSendOtherMessages = isAllowed,
         };
         
-        await bot.SetChatPermissions(chatId: config.ChatId, permissions: perm);
-        await bot.SendMessage(chatId: config.ChatId, config.ChatTurnOffMessage);
+        foreach (var chatId in config.ChatIds)
+        {
+            await bot.SetChatPermissions(chatId: chatId, permissions: perm);
+            await bot.SendMessage(chatId: chatId, config.ChatTurnOffMessage);
+        }
     }
 }
