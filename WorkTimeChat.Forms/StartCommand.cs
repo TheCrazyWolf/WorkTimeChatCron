@@ -12,7 +12,7 @@ public class StartCommand : AutoCleanForm
         if(message.IsBotGroupCommand) return;
 
         var strBuiled = new StringBuilder();
-        strBuiled.AppendLine($"<b>SchedulerWorkTim for chat</b>\n");
+        strBuiled.AppendLine($"<b>SchedulerWorkTime for chat</b>\n");
         strBuiled.AppendLine($"Chat bot that configures the operating time of chats.\n");
         strBuiled.AppendLine($"Current datetime on server: {DateTime.Now.ToString()}\n");
         strBuiled.AppendLine($"Development by @kulagin_alex for samgk.ru");

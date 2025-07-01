@@ -25,7 +25,7 @@ public class TelegramWorker(string apiKey, IServiceProvider serviceProvider)
             .NoProxy()
             .CustomCommands(x =>
                 {
-                    x.Add("start", "Связать аккаунт с HelpDesk");
+                    x.Add("start", "Инфо");
                 }
             )
             .NoSerialization()
