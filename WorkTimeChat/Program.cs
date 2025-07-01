@@ -1,7 +1,16 @@
+using System.Globalization;
 using Quartz;
 using WorkTimeChat.Jobs;
 using WorkTimeChat.Models;
 using WorkTimeChat.Telegram;
+
+var ci = new CultureInfo("ru-RU");
+Thread.CurrentThread.CurrentCulture = ci;
+Thread.CurrentThread.CurrentUICulture = ci;
+CultureInfo.DefaultThreadCurrentCulture = ci;
+CultureInfo.DefaultThreadCurrentUICulture = ci;
+CultureInfo.CurrentCulture = ci;
+CultureInfo.CurrentUICulture = ci;
 
 var builder = Host.CreateApplicationBuilder(args);
 
