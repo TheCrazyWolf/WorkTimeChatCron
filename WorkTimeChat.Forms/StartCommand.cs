@@ -14,6 +14,7 @@ public class StartCommand : AutoCleanForm
         var strBuiled = new StringBuilder();
         strBuiled.AppendLine($"<b>SchedulerWorkTim for chat</b>\n");
         strBuiled.AppendLine($"Chat bot that configures the operating time of chats.\n");
+        strBuiled.AppendLine($"Current datetime on server: {DateTime.Now.ToString()}\n");
         strBuiled.AppendLine($"Development by @kulagin_alex for samgk.ru");
         await Device.Send(strBuiled.ToString(), parseMode: ParseMode.Html);
     }
