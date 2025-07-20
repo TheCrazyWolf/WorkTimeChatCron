@@ -13,12 +13,9 @@ public class CronScheduleTester
 
     public Task Run()
     {
-        var testTimes = new[]
-        {
-            new TimeSpan(7, 30, 0),
-            new TimeSpan(10, 00, 0),
-            new TimeSpan(19, 30, 0)
-        };
+        var testTimes = Enumerable.Range(0, 48) // 48 отрезков по 30 минут в сутках
+            .Select(i => TimeSpan.FromMinutes(i * 30))
+            .ToArray();;
 
         foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
         {
