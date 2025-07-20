@@ -7,7 +7,7 @@ public class ChatWorkTimeService(IConfiguration configuration)
 {
     public bool IsWorkingTime(DateTime dateTime)
     {
-        var configSection = configuration.GetSection("WorkTimeConfig").Get<WorkTimeConfig>();
+        var configSection = configuration.Get<WorkTimeConfig>();
         if (configSection == null) return false;
 
         var allowedTimes = configSection.AllowedTimes;
