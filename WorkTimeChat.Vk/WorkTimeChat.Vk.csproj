@@ -4,6 +4,12 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <AssemblyName>WorkTimeChat.Vk</AssemblyName>
+        <RootNamespace>WorkTimeChat.Vk</RootNamespace>
+        <PackageId>WorkTimeChat.Vk</PackageId>
+        <Authors>WorkTimeChat.Vk</Authors>
+        <Company>WorkTimeChat.Vk</Company>
+        <Product>WorkTimeChat.Vk</Product>
     </PropertyGroup>
 
     <ItemGroup>

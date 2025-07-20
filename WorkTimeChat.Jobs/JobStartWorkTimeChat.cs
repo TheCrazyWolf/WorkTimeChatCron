@@ -3,7 +3,7 @@ using Quartz;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using WorkTimeChat.Models;
-using WorkTimeChat.Telegram;
+using WorkTimeChat.Vk;
 
 namespace WorkTimeChat.Jobs;
 

@@ -13,7 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WorkTimeChat.Models\WorkTimeChat.Models.csproj" />
-      <ProjectReference Include="..\WorkTimeChat.Telegram\WorkTimeChat.Telegram.csproj" />
+      <ProjectReference Include="..\WorkTimeChat.Vk\WorkTimeChat.Vk.csproj" />
     </ItemGroup>
 
 </Project>

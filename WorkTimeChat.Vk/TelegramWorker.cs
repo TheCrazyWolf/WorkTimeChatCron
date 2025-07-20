@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using VkNet;
 using VkNet.Model;
 
-namespace WorkTimeChat.Telegram;
+namespace WorkTimeChat.Vk;
 
 public class TelegramWorker(string apiKey, IServiceCollection servics) 
 {
