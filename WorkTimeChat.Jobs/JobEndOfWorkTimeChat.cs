@@ -11,7 +11,7 @@ public class JobEndOfWorkTimeChat(TelegramWorker telegramWorker, IConfiguration 
 {
     public async Task Execute(IJobExecutionContext context)
     {
-        var bot = telegramWorker.BotBaseInstance!.Client.TelegramClient;
+        var bot = telegramWorker.VkApi!.Client.TelegramClient;
         var config = configuration.Get<WorkTimeConfig>()!;
 
         var isAllowed = false;

@@ -13,6 +13,7 @@ CultureInfo.CurrentCulture = ci;
 CultureInfo.CurrentUICulture = ci;
 
 var builder = Host.CreateApplicationBuilder(args);
+IServiceCollection services = builder.Services;
 
 var config = builder.Configuration.Get<WorkTimeConfig>()!;
 
@@ -50,7 +51,7 @@ builder.Services.AddQuartzHostedService(options =>
 
 builder.Services.AddSingleton<TelegramWorker>(sp =>
 {
-    var telegramBackground = new TelegramWorker(config.AccessToken, sp); 
+    var telegramBackground = new TelegramWorker(config.AccessToken, services); 
     return telegramBackground;
 });
 
