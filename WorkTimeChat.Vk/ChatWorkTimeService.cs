@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Configuration;
-using Quartz;
 using WorkTimeChat.Models;
 
 namespace WorkTimeChat.Vk;
@@ -8,7 +7,7 @@ public class ChatWorkTimeService(IConfiguration configuration)
 {
     public bool IsWorkingTime(DateTime dateTime)
     {
-        var configSection = configuration.Get<WorkTimeConfig>();
+        var configSection = configuration.GetSection("WorkTimeConfig").Get<WorkTimeConfig>();
         if (configSection == null) return false;
 
         var allowedTimes = configSection.AllowedTimes;

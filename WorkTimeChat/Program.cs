@@ -13,6 +13,8 @@ CultureInfo.DefaultThreadCurrentUICulture = ci;
 CultureInfo.CurrentCulture = ci;
 CultureInfo.CurrentUICulture = ci;
 
+
+System.Diagnostics.Debug.WriteLine(typeof(WorkTimeConfig).Assembly.Location);
 var builder = Host.CreateApplicationBuilder(args);
 IServiceCollection services = builder.Services;
 
