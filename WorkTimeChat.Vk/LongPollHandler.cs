@@ -56,6 +56,7 @@ public class LongPollHandler(VkBotWorker vkBot, IConfiguration configuration, Ch
 
                     var msgIdsToBeDeleted = history.Messages
                         .Where(x => !chatWorkTimeService.IsWorkingTime(x.Date!.Value.AddHours(4)))
+                        .Where(x=> !config.AllowedUsersIdAlways.Contains((long)x.FromId!))
                         .Select(x => Convert.ToUInt64(x.Id)).ToList();
 
                     if (!msgIdsToBeDeleted.Any()) continue;
