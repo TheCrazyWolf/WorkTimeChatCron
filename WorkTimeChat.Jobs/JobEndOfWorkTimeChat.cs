@@ -7,11 +7,11 @@ using WorkTimeChat.Vk;
 
 namespace WorkTimeChat.Jobs;
 
-public class JobEndOfWorkTimeChat(TelegramWorker telegramWorker, IConfiguration configuration) : IJob
+public class JobEndOfWorkTimeChat(VkBotWorker vkBotWorker, IConfiguration configuration) : IJob
 {
     public async Task Execute(IJobExecutionContext context)
     {
-        var bot = telegramWorker.VkApi!.Client.TelegramClient;
+        var bot = vkBotWorker.VkApi;
         var config = configuration.Get<WorkTimeConfig>()!;
 
         var isAllowed = false;

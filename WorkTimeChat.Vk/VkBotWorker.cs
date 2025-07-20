@@ -4,7 +4,7 @@ using VkNet.Model;
 
 namespace WorkTimeChat.Vk;
 
-public class TelegramWorker(string apiKey, IServiceCollection servics) 
+public class VkBotWorker(string apiKey, IServiceCollection servics) 
 {
     public VkApi? VkApi { get; private set; }
     

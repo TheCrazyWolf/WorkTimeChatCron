@@ -49,9 +49,9 @@ builder.Services.AddQuartzHostedService(options =>
     options.WaitForJobsToComplete = true;
 });
 
-builder.Services.AddSingleton<TelegramWorker>(sp =>
+builder.Services.AddSingleton<VkBotWorker>(sp =>
 {
-    var telegramBackground = new TelegramWorker(config.AccessToken, services); 
+    var telegramBackground = new VkBotWorker(config.AccessToken, services); 
     return telegramBackground;
 });
 
@@ -59,7 +59,7 @@ var host = builder.Build();
 
 using (var scope = host.Services.CreateScope())
 {
-    var bot = scope.ServiceProvider.GetRequiredService<TelegramWorker>();
+    var bot = scope.ServiceProvider.GetRequiredService<VkBotWorker>();
     await bot.StartAsync();
 }
 host.Run();
