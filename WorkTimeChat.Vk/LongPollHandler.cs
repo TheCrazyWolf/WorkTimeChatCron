@@ -23,12 +23,14 @@ public class LongPollHandler(VkBotWorker vkBot, IConfiguration configuration, Ch
                         Server = s.Server, Ts = s.Ts, Key = s.Key, Wait = 25
                     });
                 if (poll?.Updates == null) continue;
-
+                
                 foreach (var msg in from a in poll.Updates
                          where a.Type.Value == GroupUpdateType.MessageNew
                          select ((MessageNew)a.Instance).Message!)
                 {
-                    if (msg.Text.Contains("identity"))
+                    var isAllowedUser = config.AllowedUsersIdAlways.Contains((long)msg.FromId!);
+                    
+                    if (msg.Text.Contains("identity") && isAllowedUser)
                     {
                         var parm = new MessagesSendParams()
                         {
@@ -46,7 +48,6 @@ public class LongPollHandler(VkBotWorker vkBot, IConfiguration configuration, Ch
                     }
 
                     var isWorkTime = chatWorkTimeService.IsWorkingTime(DateTime.Now);
-                    var isAllowedUser = config.AllowedUsersIdAlways.Contains((long)msg.FromId!);
 
                     if (isWorkTime) return;
                     if (isAllowedUser) return;
