@@ -44,16 +44,18 @@ public class LongPollHandler(VkBotWorker vkBot, IConfiguration configuration, Ch
                 }
 
                 var isWorkTime = chatWorkTimeService.IsWorkingTime(DateTime.Now);
+                var isAllowedUser = config.AllowedUsersIdAlways.Contains((long)msg.FromId!);
 
                 if (isWorkTime) return;
+                if (isAllowedUser) return;
                 
                 var history = await bot.Messages.GetHistoryAsync(new MessagesGetHistoryParams()
                     { PeerId = msg.PeerId });
 
                 var msgIdsToBeDeleted = history.Messages
-                    .Where(x => chatWorkTimeService.IsWorkingTime(x.Date!.Value.AddHours(4)))
+                    .Where(x => !chatWorkTimeService.IsWorkingTime(x.Date!.Value.AddHours(4)))
                     .Select(x=> Convert.ToUInt64(x.Id)).ToList();
-
+                
                 if (!msgIdsToBeDeleted.Any()) continue;
                 
                 try
