@@ -4,6 +4,7 @@ public class WorkTimeConfig
 {
     public long[] ChatIds { get; set; } = null!;
     public string AccessToken { get; set; } = null!;
+    public ulong GroupId { get; set; } = default!;
     public string ChatTurnOnMessage { get; set; } = null!;
     public string[] JobTurnOnParams { get; set; } = null!;
     public string ChatTurnOffMessage { get; set; } = null!;

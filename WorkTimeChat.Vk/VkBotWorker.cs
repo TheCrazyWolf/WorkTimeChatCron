@@ -11,11 +11,12 @@ public class VkBotWorker(string apiKey, IServiceCollection servics)
     public async Task StartAsync()
     {
         if (string.IsNullOrEmpty(apiKey)) return;
-        var api = new VkApi(servics);
+        VkApi = new VkApi();
         
-        await api.AuthorizeAsync(new ApiAuthParams
+        await VkApi.AuthorizeAsync(new ApiAuthParams
         {
             AccessToken = apiKey
         });
+        
     }
 }
