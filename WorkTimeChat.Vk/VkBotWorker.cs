@@ -12,7 +12,7 @@ public class VkBotWorker(string apiKey, IServiceCollection servics)
     {
         if (string.IsNullOrEmpty(apiKey)) return;
         var api = new VkApi(servics);
-
+        
         await api.AuthorizeAsync(new ApiAuthParams
         {
             AccessToken = apiKey

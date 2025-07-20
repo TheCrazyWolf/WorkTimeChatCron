@@ -55,6 +55,8 @@ builder.Services.AddSingleton<VkBotWorker>(sp =>
     return telegramBackground;
 });
 
+builder.Services.AddSingleton<ChatWorkTimeService>();
+
 var host = builder.Build();
 
 using (var scope = host.Services.CreateScope())

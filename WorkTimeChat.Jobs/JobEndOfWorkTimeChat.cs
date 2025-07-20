@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Quartz;
-using Telegram.Bot;
-using Telegram.Bot.Types;
+using VkNet.Model;
 using WorkTimeChat.Models;
 using WorkTimeChat.Vk;
 
@@ -11,28 +10,26 @@ public class JobEndOfWorkTimeChat(VkBotWorker vkBotWorker, IConfiguration config
 {
     public async Task Execute(IJobExecutionContext context)
     {
-        var bot = vkBotWorker.VkApi;
+        var bot = vkBotWorker.VkApi!;
         var config = configuration.Get<WorkTimeConfig>()!;
-
-        var isAllowed = false;
-
-        var perm = new ChatPermissions()
-        {
-            CanSendAudios = isAllowed,
-            CanSendDocuments = isAllowed,
-            CanSendPhotos = isAllowed,
-            CanSendPolls = isAllowed,
-            CanSendVoiceNotes = isAllowed,
-            CanSendMessages = isAllowed,
-            CanSendVideoNotes = isAllowed,
-            CanSendVideos = isAllowed,
-            CanSendOtherMessages = isAllowed,
-        };
         
         foreach (var chatId in config.ChatIds)
         {
-            await bot.SetChatPermissions(chatId: chatId, permissions: perm);
-            await bot.SendMessage(chatId: chatId, config.ChatTurnOffMessage);
+            var param = new MessagesSendParams()
+            {
+                PeerId = chatId,
+                RandomId = new Random().Next(),
+                Message = config.ChatTurnOffMessage
+            };
+
+            try
+            {
+                await bot.Messages.SendAsync(param);
+            }
+            catch (Exception e)
+            {
+               //
+            }
         }
     }
 }
