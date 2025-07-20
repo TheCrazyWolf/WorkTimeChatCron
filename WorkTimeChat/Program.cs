@@ -1,5 +1,6 @@
 using System.Globalization;
 using Quartz;
+using WorkTimeChat;
 using WorkTimeChat.Jobs;
 using WorkTimeChat.Models;
 using WorkTimeChat.Vk;
@@ -62,9 +63,16 @@ var host = builder.Build();
 
 using (var scope = host.Services.CreateScope())
 {
+    var iconfog = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+    var tester = new CronScheduleTester(iconfog);
+    await tester.Run();
+
     var bot = scope.ServiceProvider.GetRequiredService<VkBotWorker>();
     await bot.StartAsync();
     var handler = scope.ServiceProvider.GetRequiredService<LongPollHandler>();
     _ = handler.Setup();
+  
 }
+
+
 host.Run();

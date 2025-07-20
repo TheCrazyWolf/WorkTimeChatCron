@@ -9,4 +9,5 @@ public class WorkTimeConfig
     public string[] JobTurnOnParams { get; set; } = null!;
     public string ChatTurnOffMessage { get; set; } = null!;
     public string[] JobTurnOffParams { get; set; } = null!;
+    public Dictionary<string, string> AllowedTimes { get; set; } = new();
 }

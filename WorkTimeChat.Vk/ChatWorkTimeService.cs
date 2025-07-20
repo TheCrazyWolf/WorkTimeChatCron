@@ -4,25 +4,40 @@ using WorkTimeChat.Models;
 
 namespace WorkTimeChat.Vk;
 
-public class ChatWorkTimeService(IConfiguration config)
+public class ChatWorkTimeService(IConfiguration configuration)
 {
     public bool IsWorkingTime(DateTime dateTime)
     {
-        List<CronExpression> turnOnCrons = config.Get<WorkTimeConfig>()!.JobTurnOnParams.Select(e => new CronExpression(e)).ToList();
-        List<CronExpression> turnOffCrons = config.Get<WorkTimeConfig>()!.JobTurnOffParams.Select(e => new CronExpression(e)).ToList();
+        var configSection = configuration.Get<WorkTimeConfig>();
+        if (configSection == null) return false;
+        
+        var allowedTimes = configSection.AllowedTimes;
+            
+        var today = dateTime.DayOfWeek;
+        
+        var item = allowedTimes.FirstOrDefault(t => string.Equals(t.Key, today.ToString(),  StringComparison.InvariantCultureIgnoreCase));
 
-        // Найдём последнее включение
-        var lastTurnOn = turnOnCrons
-            .Select(expr => expr.GetTimeBefore(dateTime))
-            .Where(d => d.HasValue)
-            .Max();
+        if (!Enum.TryParse<DayOfWeek>(item.Key, ignoreCase: true, out var day)) return false;
+       
+        if(day != today) return false;
+        
+        var timeRange = item.Value;
+        if (string.IsNullOrWhiteSpace(timeRange))
+            return false;
 
-        // Найдём ближайшее выключение
-        var nextTurnOff = turnOffCrons
-            .Select(expr => expr.GetNextValidTimeAfter(lastTurnOn ?? dateTime))
-            .Where(d => d.HasValue)
-            .Min();
+        var parts = timeRange.Split('-');
+        if (parts.Length != 2)
+            return false;
 
-        return lastTurnOn.HasValue && nextTurnOff.HasValue && dateTime >= lastTurnOn && dateTime < nextTurnOff;
+        if (!TimeSpan.TryParse(parts[0], out TimeSpan start))
+            return false;
+
+        if (!TimeSpan.TryParse(parts[1], out TimeSpan end))
+            return false;
+
+        var nowTime = dateTime.TimeOfDay;
+
+        return nowTime >= start && nowTime < end;
     }
+    
 }
