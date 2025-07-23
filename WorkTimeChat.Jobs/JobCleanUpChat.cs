@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Quartz;
 using VkNet.Model;
 using WorkTimeChat.Models;
@@ -7,7 +6,7 @@ using WorkTimeChat.Vk;
 
 namespace WorkTimeChat.Jobs;
 
-public class JobCleanUpChat(VkBotWorker vkBot, IConfiguration configuration, ChatWorkTimeService chatWorkTimeService, ILogger<JobCleanUpChat> logger) : IJob
+public class JobCleanUpChat(VkBotWorker vkBot, IConfiguration configuration, ChatWorkTimeService chatWorkTimeService) : IJob
 {
     public async Task Execute(IJobExecutionContext context)
     {
@@ -35,7 +34,7 @@ public class JobCleanUpChat(VkBotWorker vkBot, IConfiguration configuration, Cha
             }
             catch (Exception e)
             {
-                logger.LogError(e.Message);
+                Console.WriteLine(e.Message);
             }
         }
     }

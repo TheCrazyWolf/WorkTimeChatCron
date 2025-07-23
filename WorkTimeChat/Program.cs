@@ -20,8 +20,18 @@ IServiceCollection services = builder.Services;
 
 var config = builder.Configuration.Get<WorkTimeConfig>()!;
 
+builder.Logging.AddConsole();
 builder.Services.AddQuartz(q =>
 {
+    var jobCleanUpId = $"{nameof(JobCleanUpChat)}-{Guid.NewGuid().ToString().Split("-").First()}";
+    var jobCleanUp = new JobKey(jobCleanUpId);
+    q.AddJob<JobCleanUpChat>(opts => opts.WithIdentity(jobCleanUp));
+
+    q.AddTrigger(opts => opts
+        .ForJob(jobCleanUp)
+        .WithIdentity(jobCleanUpId)
+        .WithCronSchedule("0/30 * * * * ?"));
+    
     foreach (var item in config.JobTurnOnParams)
     {
         var jobId = $"{nameof(JobStartWorkTimeChat)}-{Guid.NewGuid().ToString().Split("-").First()}";
@@ -45,6 +55,7 @@ builder.Services.AddQuartz(q =>
             .WithIdentity(jobId)
             .WithCronSchedule(item));
     }
+    
 });
 
 builder.Services.AddQuartzHostedService(options =>
@@ -67,7 +78,7 @@ using (var scope = host.Services.CreateScope())
 {
     var iconfog = scope.ServiceProvider.GetRequiredService<IConfiguration>();
     var tester = new CronScheduleTester(iconfog);
-    await tester.Run();
+    _ = tester.Run();
 
     var bot = scope.ServiceProvider.GetRequiredService<VkBotWorker>();
     await bot.StartAsync();

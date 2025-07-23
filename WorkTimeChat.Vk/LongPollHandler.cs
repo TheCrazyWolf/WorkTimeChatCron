@@ -46,32 +46,7 @@ public class LongPollHandler(VkBotWorker vkBot, IConfiguration configuration, Ch
                     {
                         continue;
                     }
-
-                    var isWorkTime = chatWorkTimeService.IsWorkingTime(DateTime.Now);
-
-                    if (isWorkTime) return;
-                    if (isAllowedUser) return;
-
-                    var history = await bot.Messages.GetHistoryAsync(new MessagesGetHistoryParams()
-                        { PeerId = msg.PeerId });
-
-                    var msgIdsToBeDeleted = history.Messages
-                        .Where(x => !chatWorkTimeService.IsWorkingTime(x.Date!.Value.AddHours(4)))
-                        .Where(x=> !config.AllowedUsersIdAlways.Contains((long)x.FromId!))
-                        .Select(x => Convert.ToUInt64(x.Id)).ToList();
-
-                    if (!msgIdsToBeDeleted.Any()) continue;
-
-                    try
-                    {
-                        var result = await bot.Messages.DeleteAsync(
-                            messageIds: msgIdsToBeDeleted, null, (ulong)msg.PeerId, true
-                        );
-                    }
-                    catch (Exception e)
-                    {
-                        //
-                    }
+                    
                 }
             }
             catch (Exception e)
