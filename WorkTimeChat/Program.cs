@@ -70,7 +70,7 @@ builder.Services.AddSingleton<VkBotWorker>(sp =>
 });
 
 builder.Services.AddSingleton<ChatWorkTimeService>();
-builder.Services.AddSingleton<LongPollHandler>();
+//builder.Services.AddSingleton<LongPollHandler>();
 
 var host = builder.Build();
 
@@ -82,8 +82,8 @@ using (var scope = host.Services.CreateScope())
 
     var bot = scope.ServiceProvider.GetRequiredService<VkBotWorker>();
     await bot.StartAsync();
-    var handler = scope.ServiceProvider.GetRequiredService<LongPollHandler>();
-    _ = handler.Setup();
+   // var handler = scope.ServiceProvider.GetRequiredService<LongPollHandler>();
+   // _ = handler.Setup();
   
 }
 
