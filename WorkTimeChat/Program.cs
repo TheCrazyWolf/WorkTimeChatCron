@@ -5,13 +5,6 @@ using WorkTimeChat.Telegram;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-builder.Services.AddSingleton<TelegramWorker>(sp =>
-{
-    var telegramBackground = new TelegramWorker(builder.Configuration.Get<WorkTimeConfig>()!.AccessToken, sp);
-    _ = telegramBackground.StartAsync();
-    return telegramBackground;
-});
-
 var config = builder.Configuration.Get<WorkTimeConfig>()!;
 
 builder.Services.AddQuartz(q =>
@@ -46,5 +39,17 @@ builder.Services.AddQuartzHostedService(options =>
     options.WaitForJobsToComplete = true;
 });
 
+builder.Services.AddSingleton<TelegramWorker>(sp =>
+{
+    var telegramBackground = new TelegramWorker(config.AccessToken, sp); 
+    return telegramBackground;
+});
+
 var host = builder.Build();
+
+using (var scope = host.Services.CreateScope())
+{
+    var bot = scope.ServiceProvider.GetRequiredService<TelegramWorker>();
+    await bot.StartAsync();
+}
 host.Run();
